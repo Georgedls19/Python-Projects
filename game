@@ -1,0 +1,113 @@
+from random import choice
+
+plays =["Piedra","Papel","Tijeras"]
+
+def get_verb(winner,loser):
+    verbs = {
+        "Piedra": {"Tijeras":"Piedra destruye Tijeras"},
+        "Papel": {"Piedra":"Papel cubre a la Piedra"},
+        "Tijeras": {"Papel":"Tijeras corta al papel"}            
+    }
+    return verbs[winner][loser]
+
+while True:
+    computer = choice(plays)
+    
+    player = input("Piedra, papel o tijeras? (Escribir exit para salir): ").capitalize()
+    if player == "exit":
+        print("Adiós!")
+        break
+    
+    if player not in plays:
+        print("No es un juego válido")
+        continue
+    
+    if player == computer:
+        print("Es un juego de empates")
+    elif (player == "Piedra" and computer == "Tijeras") \
+        or (player == "Papel" and computer == "Piedra") \
+        or (player == "Tijeras" and computer == "Papel"):
+            print("El ganador es el " + player)
+            print(get_verb(player,computer))
+    else:
+        print("El ganador es el " + computer)
+        print(get_verb(computer,player))    
+
+    play_again = input("¿Quieres jugar otra vez? (S/N): ").lower()
+    if play_again != "s":
+        print("Gracias por jugar!")
+        break
+# import tkinter as tk
+# from random import choice
+
+# plays = ["Piedra", "Papel", "Tijeras"]
+
+# # Tu función original, sin cambios
+# def get_verb(winner, loser):
+#     verbs = {
+#         "Piedra": {"Tijeras": "Piedra destruye Tijeras"},
+#         "Papel": {"Piedra": "Papel cubre a la Piedra"},
+#         "Tijeras": {"Papel": "Tijeras corta al papel"}            
+#     }
+#     return verbs[winner][loser]
+
+# # Función que se ejecuta cuando el usuario presiona un botón
+# def play(player_choice):
+#     computer_choice = choice(plays)
+    
+#     # Evaluar el resultado
+#     if player_choice == computer_choice:
+#         result_text = "¡Es un empate!"
+#         verb_text = f"Ambos eligieron {player_choice}"
+#     elif (player_choice == "Piedra" and computer_choice == "Tijeras") \
+#         or (player_choice == "Papel" and computer_choice == "Piedra") \
+#         or (player_choice == "Tijeras" and computer_choice == "Papel"):
+#         result_text = f"¡Ganaste! ({player_choice})"
+#         verb_text = get_verb(player_choice, computer_choice)
+#     else:
+#         result_text = f"¡La computadora gana! ({computer_choice})"
+#         verb_text = get_verb(computer_choice, player_choice)
+        
+#     # Actualizar las etiquetas (Labels) en la interfaz
+#     lbl_computer.config(text=f"La computadora eligió: {computer_choice}")
+#     lbl_result.config(text=result_text)
+#     lbl_verb.config(text=verb_text)
+
+# # --- CREACIÓN DE LA INTERFAZ GRÁFICA ---
+
+# # Configuración de la ventana principal
+# root = tk.Tk()
+# root.title("Piedra, Papel o Tijeras")
+# root.geometry("400x300")
+# root.config(padx=20, pady=20)
+
+# # Etiqueta de instrucciones
+# lbl_title = tk.Label(root, text="Elige tu jugada:", font=("Arial", 14))
+# lbl_title.pack(pady=10)
+
+# # Contenedor para alinear los botones horizontalmente
+# frame_buttons = tk.Frame(root)
+# frame_buttons.pack(pady=10)
+
+# # Botones de juego (Usamos lambda para pasar el argumento a la función play)
+# btn_rock = tk.Button(frame_buttons, text="Piedra", width=10, command=lambda: play("Piedra"))
+# btn_rock.grid(row=0, column=0, padx=5)
+
+# btn_paper = tk.Button(frame_buttons, text="Papel", width=10, command=lambda: play("Papel"))
+# btn_paper.grid(row=0, column=1, padx=5)
+
+# btn_scissors = tk.Button(frame_buttons, text="Tijeras", width=10, command=lambda: play("Tijeras"))
+# btn_scissors.grid(row=0, column=2, padx=5)
+
+# # Etiquetas para mostrar los resultados (inician vacías o con texto por defecto)
+# lbl_computer = tk.Label(root, text="La computadora eligió: -", font=("Arial", 12))
+# lbl_computer.pack(pady=20)
+
+# lbl_result = tk.Label(root, text="", font=("Arial", 14, "bold"), fg="blue")
+# lbl_result.pack()
+
+# lbl_verb = tk.Label(root, text="", font=("Arial", 12, "italic"))
+# lbl_verb.pack(pady=5)
+
+# # Iniciar el ciclo de la ventana
+# root.mainloop()
